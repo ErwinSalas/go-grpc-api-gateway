@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/hellokvn/go-grpc-api-gateway/pkg/auth"
@@ -18,6 +19,10 @@ func main() {
 	}
 
 	r := gin.Default()
+
+	r.GET("/health", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, nil)
+	})
 
 	authSvc := *auth.RegisterRoutes(r, &c)
 	product.RegisterRoutes(r, &c, &authSvc)
