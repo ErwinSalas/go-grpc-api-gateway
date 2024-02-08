@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
+	authpb "github.com/ErwinSalas/go-grpc-auth-svc/proto"
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/auth/pb"
 )
 
 type LoginRequestBody struct {
@@ -13,7 +13,7 @@ type LoginRequestBody struct {
 	Password string `json:"password"`
 }
 
-func Login(ctx *gin.Context, c pb.AuthServiceClient) {
+func Login(ctx *gin.Context, c authpb.AuthServiceClient) {
 	b := LoginRequestBody{}
 
 	if err := ctx.BindJSON(&b); err != nil {
@@ -21,7 +21,7 @@ func Login(ctx *gin.Context, c pb.AuthServiceClient) {
 		return
 	}
 
-	res, err := c.Login(context.Background(), &pb.LoginRequest{
+	res, err := c.Login(context.Background(), &authpb.LoginRequest{
 		Email:    b.Email,
 		Password: b.Password,
 	})

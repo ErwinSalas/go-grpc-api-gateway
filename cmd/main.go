@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/auth"
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/order"
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/product"
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/auth"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/config"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/order"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/product"
 )
 
 func main() {

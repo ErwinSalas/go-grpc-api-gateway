@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
+	authpb "github.com/ErwinSalas/go-grpc-auth-svc/proto"
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/auth/pb"
 )
 
 type AuthMiddlewareConfig struct {
@@ -32,7 +32,7 @@ func (c *AuthMiddlewareConfig) AuthRequired(ctx *gin.Context) {
 		return
 	}
 
-	res, err := c.svc.Client.Validate(context.Background(), &pb.ValidateRequest{
+	res, err := c.svc.Client.Validate(context.Background(), &authpb.ValidateRequest{
 		Token: token[1],
 	})
 

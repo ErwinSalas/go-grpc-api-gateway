@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
+	orderpb "github.com/ErwinSalas/go-grpc-order-svc/proto"
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/order/pb"
 )
 
 type CreateOrderRequestBody struct {
@@ -13,7 +13,7 @@ type CreateOrderRequestBody struct {
 	Quantity  int64 `json:"quantity"`
 }
 
-func CreateOrder(ctx *gin.Context, c pb.OrderServiceClient) {
+func CreateOrder(ctx *gin.Context, c orderpb.OrderServiceClient) {
 	b := CreateOrderRequestBody{}
 
 	if err := ctx.BindJSON(&b); err != nil {
@@ -23,7 +23,7 @@ func CreateOrder(ctx *gin.Context, c pb.OrderServiceClient) {
 
 	userId, _ := ctx.Get("userId")
 
-	res, err := c.CreateOrder(context.Background(), &pb.CreateOrderRequest{
+	res, err := c.CreateOrder(context.Background(), &orderpb.CreateOrderRequest{
 		ProductId: b.ProductId,
 		Quantity:  b.Quantity,
 		UserId:    userId.(int64),

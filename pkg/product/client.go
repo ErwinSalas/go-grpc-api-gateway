@@ -3,16 +3,16 @@ package product
 import (
 	"fmt"
 
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/config"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/product/pb"
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
+	productpb "github.com/ErwinSalas/go-grpc-product-svc/proto"
 	"google.golang.org/grpc"
 )
 
 type ServiceClient struct {
-	Client pb.ProductServiceClient
+	Client productpb.ProductServiceClient
 }
 
-func InitServiceClient(c *config.Config) pb.ProductServiceClient {
+func InitServiceClient(c *config.Config) productpb.ProductServiceClient {
 	// using WithInsecure() because no SSL running
 	cc, err := grpc.Dial(c.ProductSvcUrl, grpc.WithInsecure())
 
@@ -20,5 +20,5 @@ func InitServiceClient(c *config.Config) pb.ProductServiceClient {
 		fmt.Println("Could not connect:", err)
 	}
 
-	return pb.NewProductServiceClient(cc)
+	return productpb.NewProductServiceClient(cc)
 }

@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	authpb "github.com/ErwinSalas/go-grpc-auth-svc/proto"
+
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/auth/pb"
 )
 
 type RegisterRequestBody struct {
@@ -14,7 +15,7 @@ type RegisterRequestBody struct {
 	Password string `json:"password"`
 }
 
-func Register(ctx *gin.Context, c pb.AuthServiceClient) {
+func Register(ctx *gin.Context, c authpb.AuthServiceClient) {
 	b := RegisterRequestBody{}
 	fmt.Println(b)
 	if err := ctx.BindJSON(&b); err != nil {
@@ -22,7 +23,7 @@ func Register(ctx *gin.Context, c pb.AuthServiceClient) {
 		return
 	}
 
-	res, err := c.Register(context.Background(), &pb.RegisterRequest{
+	res, err := c.Register(context.Background(), &authpb.RegisterRequest{
 		Email:    b.Email,
 		Password: b.Password,
 	})

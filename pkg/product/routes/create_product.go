@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
+	productpb "github.com/ErwinSalas/go-grpc-product-svc/proto"
 	"github.com/gin-gonic/gin"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/product/pb"
 )
 
 type CreateProductRequestBody struct {
@@ -14,7 +14,7 @@ type CreateProductRequestBody struct {
 	Price int64  `json:"price"`
 }
 
-func CreateProduct(ctx *gin.Context, c pb.ProductServiceClient) {
+func CreateProduct(ctx *gin.Context, c productpb.ProductServiceClient) {
 	b := CreateProductRequestBody{}
 
 	if err := ctx.BindJSON(&b); err != nil {
@@ -22,7 +22,7 @@ func CreateProduct(ctx *gin.Context, c pb.ProductServiceClient) {
 		return
 	}
 
-	res, err := c.CreateProduct(context.Background(), &pb.CreateProductRequest{
+	res, err := c.CreateProduct(context.Background(), &productpb.CreateProductRequest{
 		Name:  b.Name,
 		Stock: b.Stock,
 		Price: b.Price,

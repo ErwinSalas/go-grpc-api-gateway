@@ -3,16 +3,16 @@ package order
 import (
 	"fmt"
 
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/config"
-	"github.com/hellokvn/go-grpc-api-gateway/pkg/order/pb"
+	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
+	orderpb "github.com/ErwinSalas/go-grpc-order-svc/proto"
 	"google.golang.org/grpc"
 )
 
 type ServiceClient struct {
-	Client pb.OrderServiceClient
+	Client orderpb.OrderServiceClient
 }
 
-func InitServiceClient(c *config.Config) pb.OrderServiceClient {
+func InitServiceClient(c *config.Config) orderpb.OrderServiceClient {
 	// using WithInsecure() because no SSL running
 	cc, err := grpc.Dial(c.OrderSvcUrl, grpc.WithInsecure())
 
@@ -20,5 +20,5 @@ func InitServiceClient(c *config.Config) pb.OrderServiceClient {
 		fmt.Println("Could not connect:", err)
 	}
 
-	return pb.NewOrderServiceClient(cc)
+	return orderpb.NewOrderServiceClient(cc)
 }
