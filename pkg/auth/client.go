@@ -14,6 +14,8 @@ type ServiceClient struct {
 
 func InitServiceClient(c *config.Config) authpb.AuthServiceClient {
 	// using WithInsecure() because no SSL running
+	fmt.Println(c.AuthSvcUrl)
+
 	cc, err := grpc.Dial(c.AuthSvcUrl, grpc.WithInsecure())
 
 	if err != nil {
