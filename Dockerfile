@@ -34,6 +34,7 @@ WORKDIR /root/
 # Copy the Pre-built binary file from the previous stage. Observe we also copied the .env file
 COPY --from=builder /app-api/main .
 COPY --from=builder /app-api/.env .
+COPY --from=builder /app-api/cert ./cert
 
 
 # Expose port 3000 to the outside world

@@ -2,6 +2,7 @@ package product
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
 	productpb "github.com/ErwinSalas/go-grpc-product-svc/proto"
@@ -13,8 +14,12 @@ type ServiceClient struct {
 }
 
 func InitServiceClient(c *config.Config) productpb.ProductServiceClient {
-	// using WithInsecure() because no SSL running
-	cc, err := grpc.Dial(c.ProductSvcUrl, grpc.WithInsecure())
+	tlsCredentials, err := config.LoadTLSCredentials()
+	if err != nil {
+		log.Fatal("cannot load TLS credentials: ", err)
+	}
+
+	cc, err := grpc.Dial(c.ProductSvcUrl, grpc.WithTransportCredentials(tlsCredentials))
 
 	if err != nil {
 		fmt.Println("Could not connect:", err)

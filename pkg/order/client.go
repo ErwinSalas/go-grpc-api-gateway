@@ -2,6 +2,7 @@ package order
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
 	orderpb "github.com/ErwinSalas/go-grpc-order-svc/proto"
@@ -14,7 +15,12 @@ type ServiceClient struct {
 
 func InitServiceClient(c *config.Config) orderpb.OrderServiceClient {
 	// using WithInsecure() because no SSL running
-	cc, err := grpc.Dial(c.OrderSvcUrl, grpc.WithInsecure())
+	tlsCredentials, err := config.LoadTLSCredentials()
+	if err != nil {
+		log.Fatal("cannot load TLS credentials: ", err)
+	}
+
+	cc, err := grpc.Dial(c.OrderSvcUrl, grpc.WithTransportCredentials(tlsCredentials))
 
 	if err != nil {
 		fmt.Println("Could not connect:", err)
