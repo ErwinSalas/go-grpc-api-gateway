@@ -14,7 +14,7 @@ type ServiceClient struct {
 }
 
 func InitServiceClient(c *config.Config) productpb.ProductServiceClient {
-	tlsCredentials, err := config.LoadTLSCredentials()
+	tlsCredentials, err := c.CertM.LoadClientCredentials()
 	if err != nil {
 		log.Fatal("cannot load TLS credentials: ", err)
 	}

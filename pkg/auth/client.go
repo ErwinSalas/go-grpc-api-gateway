@@ -17,7 +17,7 @@ func InitServiceClient(c *config.Config) authpb.AuthServiceClient {
 	// using WithInsecure() because no SSL running
 	fmt.Println(c.AuthSvcUrl)
 
-	tlsCredentials, err := config.LoadTLSCredentials()
+	tlsCredentials, err := c.CertM.LoadClientCredentials()
 	if err != nil {
 		log.Fatal("cannot load TLS credentials: ", err)
 	}

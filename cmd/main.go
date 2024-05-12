@@ -8,11 +8,13 @@ import (
 	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/config"
 	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/order"
 	"github.com/ErwinSalas/go-grpc-api-gateway/pkg/product"
+	"github.com/ErwinSalas/go-grpc-tls/pkg/gogrpctls"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	c, err := config.LoadConfig()
+	c.CertM = gogrpctls.NewCertManager()
 
 	if err != nil {
 		log.Fatalln("Failed at config", err)
