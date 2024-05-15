@@ -6,7 +6,7 @@ require (
 	github.com/ErwinSalas/go-grpc-auth-svc/proto v0.0.0-20240208054744-c3a552a0d205
 	github.com/ErwinSalas/go-grpc-order-svc/proto v1.0.1
 	github.com/ErwinSalas/go-grpc-product-svc/proto v0.0.0-20240207065649-befa435a3cfd
-	github.com/ErwinSalas/go-grpc-tls v0.0.6
+	github.com/ErwinSalas/go-grpc-tls v0.0.7
 	github.com/gin-gonic/gin v1.9.1
 	github.com/spf13/viper v1.18.2
 	google.golang.org/grpc v1.63.2
